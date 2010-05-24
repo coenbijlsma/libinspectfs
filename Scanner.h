@@ -31,5 +31,9 @@ public:
     vector<Device*> scan();
 };
 
+// .so stuff
+typedef Scanner* create_scanner_t();
+typedef bool destroy_scanner_t(Scanner* scanner);
+
 #endif	/* _SCANNER_H */
 

@@ -52,3 +52,14 @@ vector<Device*> Scanner::scan() {
 
     return this->devices;
 }
+
+// .so stuff
+extern "C" Scanner* create_scanner() {
+    return new Scanner();
+}
+
+extern "C" bool destroy_scanner(Scanner* scanner) {
+    delete scanner;
+    scanner = (Scanner*)0;
+    return true;
+}

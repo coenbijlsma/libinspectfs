@@ -18,7 +18,8 @@ using std::cout;
 using std::endl;
 
 /*
- * 
+ * For testing purposes only.
+ * Change (project)settings to application instead of library.
  */
 int main(int argc, char** argv) {
 

@@ -40,8 +40,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-ludev
-CXXFLAGS=-ludev
+CCFLAGS=
+CXXFLAGS=
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -54,31 +54,31 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libinspectfs
+	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libinspectfs.so
 
-dist/Debug/GNU-Linux-x86/libinspectfs: ${OBJECTFILES}
+dist/Debug/GNU-Linux-x86/libinspectfs.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinspectfs ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -ludev -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinspectfs.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Scanner.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/Scanner.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Scanner.o /home/coen/workspace/netbeans/libinspectfs/Scanner.cpp
+	$(COMPILE.cc) -g -I/usr/include -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Scanner.o /home/coen/workspace/netbeans/libinspectfs/Scanner.cpp
 
 ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Property.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/Property.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Property.o /home/coen/workspace/netbeans/libinspectfs/Property.cpp
+	$(COMPILE.cc) -g -I/usr/include -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Property.o /home/coen/workspace/netbeans/libinspectfs/Property.cpp
 
 ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/main.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/main.o /home/coen/workspace/netbeans/libinspectfs/main.cpp
+	$(COMPILE.cc) -g -I/usr/include -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/main.o /home/coen/workspace/netbeans/libinspectfs/main.cpp
 
 ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Device.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/Device.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Device.o /home/coen/workspace/netbeans/libinspectfs/Device.cpp
+	$(COMPILE.cc) -g -I/usr/include -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Device.o /home/coen/workspace/netbeans/libinspectfs/Device.cpp
 
 # Subprojects
 .build-subprojects:
@@ -86,7 +86,7 @@ ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Device.o: nbproject/
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug
-	${RM} dist/Debug/GNU-Linux-x86/libinspectfs
+	${RM} dist/Debug/GNU-Linux-x86/libinspectfs.so
 
 # Subprojects
 .clean-subprojects:

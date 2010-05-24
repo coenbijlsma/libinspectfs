@@ -29,7 +29,7 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="Debug" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <compilerSet>GNU|GNU</compilerSet>
@@ -40,11 +40,12 @@
           <incDir>
             <pElem>/usr/include</pElem>
           </incDir>
-          <commandLine>-ludev</commandLine>
         </ccTool>
         <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinspectfs.so</output>
           <linkerLibItems>
           </linkerLibItems>
+          <commandLine>-ludev</commandLine>
         </linkerTool>
       </compileType>
     </conf>
