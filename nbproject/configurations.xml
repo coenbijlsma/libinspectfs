@@ -5,9 +5,16 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>/home/coen/workspace/netbeans/libinspectfs/Device.h</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Disk.h</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Exception.h</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/IOException.h</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/MBR.h</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Partition.h</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/PrimaryPartition.h</itemPath>
       <itemPath>/home/coen/workspace/netbeans/libinspectfs/Property.h</itemPath>
       <itemPath>/home/coen/workspace/netbeans/libinspectfs/Scanner.h</itemPath>
       <itemPath>/home/coen/workspace/netbeans/libinspectfs/UdevProperty.h</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/User.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -17,8 +24,15 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>/home/coen/workspace/netbeans/libinspectfs/Device.cpp</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Disk.cpp</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Exception.cpp</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/IOException.cpp</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/MBR.cpp</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Partition.cpp</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/PrimaryPartition.cpp</itemPath>
       <itemPath>/home/coen/workspace/netbeans/libinspectfs/Property.cpp</itemPath>
       <itemPath>/home/coen/workspace/netbeans/libinspectfs/Scanner.cpp</itemPath>
+      <itemPath>/home/coen/workspace/netbeans/libinspectfs/User.cpp</itemPath>
       <itemPath>/home/coen/workspace/netbeans/libinspectfs/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -29,7 +43,7 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="2">
+    <conf name="Debug" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <compilerSet>GNU|GNU</compilerSet>
@@ -40,6 +54,7 @@
           <incDir>
             <pElem>/usr/include</pElem>
           </incDir>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinspectfs.so</output>

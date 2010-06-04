@@ -1,43 +1,42 @@
 #include "Device.h"
 
-Device::Device(udev_device* dev) {
-    this->dev = dev;
+Device::Device( struct udev_device* dev) : _dev( dev ){
+    
 }
 
 Device::~Device() {
+    vector<Property*>::iterator it = this->_properties.begin();
 
-    vector<Property*>::iterator it = this->properties.begin();
-
-    while( it != this->properties.end() ) {
+    while( it != this->_properties.end() ) {
         Property* prop = *it;
         delete prop;
         it++;
     }
 
-    udev_device_unref( this->dev );
+    udev_device_unref( this->_dev );
 }
 
 string Device::getDevNode() {
-    return string( udev_device_get_devnode( this->dev ) );
+    return string( udev_device_get_devnode( this->_dev ) );
 }
 
 vector<Property*> Device::getProperties() {
-    if ( !this->properties.size() ) {
+    if ( !this->_properties.size() ) {
         struct udev_list_entry* entry 
-            = udev_device_get_properties_list_entry( this->dev );
+            = udev_device_get_properties_list_entry( this->_dev );
 
         while( entry ) {
             Property* property = new Property(
                     string( udev_list_entry_get_name( entry ) )
                     , string( udev_list_entry_get_value( entry ) )
             );
-            this->properties.push_back( property );
+            this->_properties.push_back( property );
             entry = udev_list_entry_get_next( entry );
         }
         
     }
 
-    return this->properties;
+    return this->_properties;
 }
 
 Property* Device::getPropertyByName(string name) {
@@ -56,9 +55,9 @@ Property* Device::getPropertyByName(string name) {
 }
 
 string Device::getSysPath() {
-    return string( udev_device_get_syspath( this->dev ) );
+    return string( udev_device_get_syspath( this->_dev ) );
 }
 
 string Device::getType() {
-    return string( udev_device_get_devtype( this->dev ) );
+    return string( udev_device_get_devtype( this->_dev ) );
 }

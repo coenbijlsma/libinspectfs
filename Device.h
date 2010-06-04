@@ -19,8 +19,8 @@ using std::vector;
 class Device {
 
 protected:
-    struct udev_device* dev;
-    vector<Property*> properties;
+    struct udev_device* _dev;
+    vector<Property*> _properties;
 
 public:
 

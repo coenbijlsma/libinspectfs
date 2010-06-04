@@ -19,8 +19,8 @@ using std::vector;
 class Scanner {
 
 private:
-    vector<Device*> devices;
-    struct udev* udev;
+    vector<Device*> _devices;
+    struct udev* _udev;
 
 public:
 
