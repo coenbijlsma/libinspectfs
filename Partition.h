@@ -18,6 +18,9 @@ class Partition {
 
 public:
 
+    /**
+     * Destructor.
+     */
     virtual ~Partition() {}
     
     /**
