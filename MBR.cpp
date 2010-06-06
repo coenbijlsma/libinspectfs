@@ -17,7 +17,7 @@ const streamsize MBR::MBR_SIGN_SIZE;
 const unsigned short MBR::PARTITION_RECORD_SIZE;
 const unsigned short MBR::MAGIC_NUMBER;
 
-MBR::MBR(Disk* disk) : _disk( disk ) {
+MBR::MBR(BlockDevice* disk) : _disk( disk ) {
     filebuf fb;
     fb.open( this->_disk->getDevNode().c_str(), ios::in | ios::binary );
     istream is( &fb );

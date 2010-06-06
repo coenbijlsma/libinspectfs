@@ -1,5 +1,5 @@
 #include "Device.h"
-
+#include <sys/ioctl.h>
 Device::Device( struct udev_device* dev) : _dev( dev ){
     
 }

@@ -8,7 +8,7 @@
 #ifndef _MBR_H
 #define	_MBR_H
 
-#include "Disk.h"
+#include "BlockDevice.h"
 #include "IOException.h"
 #include "Partition.h"
 #include <iostream>
@@ -17,7 +17,7 @@
 using std::vector;
 using std::streamsize;
 
-class Disk;
+class BlockDevice;
 
 class MBR {
 
@@ -38,7 +38,7 @@ protected:
     /**
      * @var The Disk this MBR belongs to.
      */
-    Disk* _disk;
+    BlockDevice* _disk;
 
     /**
      * @var The boot loader code, offset 0 - 439
@@ -77,7 +77,7 @@ public:
      *
      * @param disk The physical device this MBR belongs to.
      */
-    MBR( Disk* disk );
+    MBR( BlockDevice* disk );
 
     /**
      * Destructor.

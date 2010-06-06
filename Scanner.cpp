@@ -56,7 +56,7 @@ vector<Device*> Scanner::scan() {
 
                         if ( id_type ) {
                             if ( strcmp( "disk", id_type_value ) == 0 ) {
-                                Disk* disk = new Disk( device );
+                                BlockDevice* disk = new Disk( device );
                                 this->_devices.push_back( disk );
                             }
                             else if ( strcmp( "cd", id_type_value ) == 0 ) {

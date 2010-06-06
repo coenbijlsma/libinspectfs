@@ -11,10 +11,12 @@
 #include <string>
 #include <vector>
 #include <libudev.h>
+#include <iostream>
 #include "Property.h"
 
 using std::string;
 using std::vector;
+using std::streamsize;
 
 class Device {
 

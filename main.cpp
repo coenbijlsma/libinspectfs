@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
             cout << device->getDevNode() << endl;
             cout << "\t" << device->getType() << endl;
 
-            Disk* disk = dynamic_cast<Disk*>(device);
+            BlockDevice* disk = dynamic_cast<BlockDevice*>(device);
             
             if ( disk ) {
                 try {
