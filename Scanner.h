@@ -22,6 +22,8 @@ private:
     vector<Device*> _devices;
     struct udev* _udev;
 
+    Device* findBySyspath( string syspath );
+
 public:
 
     Scanner();

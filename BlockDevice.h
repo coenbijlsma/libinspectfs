@@ -5,18 +5,33 @@
  * Created on May 30, 2010, 9:44 PM
  */
 
-#ifndef _DISK_H
-#define	_DISK_H
+#ifndef _BLOCKDEVICE_H
+#define	_BLOCKDEVICE_H
 
+#include <linux/fs.h>
 #include "Device.h"
 #include "MBR.h"
+#include "PartitionRecord.h"
+#include "IOException.h"
 
 class MBR;
+class PartitionRecord;
 
 class BlockDevice : public Device {
 
 protected:
+    
+    int _logical_block_size;
+
+    int _physical_block_size;
+
     MBR* _mbr;
+
+    unsigned char _identity[ 512 ];
+
+    int _fd;
+
+    struct hd_geometry* _geometry;
 public:
 
     /**
@@ -39,16 +54,69 @@ public:
     MBR* const getMBR();
 
     /**
-     * Returns the block size of this Disk. This is mostly 512 bytes,
-     * but for optical discs this is 2048 bytes.
+     * Returns the logical sector size of this BlockDevice.
+     * This is mostly 512 bytes, but for optical discs this is 2048 bytes.
      * Wikipedia sais that from 2011, manufacturers will implement 4096 bytes
-     * as the new standard sector size.
+     * as the new standard sector size. The value is retrieved by calling
+     * ioctl( fd, BLKBSZGET, &var ).
      *
      * @link http://en.wikipedia.org/wiki/Disk_sector
      */
-    unsigned short getSectorSize();
+    int getLogicalBlockSize() throw( IOException );
+
+    /**
+     * Returns the logical sector size of this BlockDevice.
+     * This is mostly 512 bytes, but for optical discs this is 2048 bytes.
+     * Wikipedia sais that from 2011, manufacturers will implement 4096 bytes
+     * as the new standard sector size. The value is retrieved by calling
+     * ioctl( fd, BLKSSZGET, &var ).
+     *
+     * @link http://en.wikipedia.org/wiki/Disk_sector
+     */
+    int getPhysicalBlockSize() throw( IOException );
+
+    /**
+     * Returns the geometry of this BlockDevice.
+     *  struct hd_geometry {
+     *        unsigned char heads;
+     *        unsigned char sectors;
+     *        unsigned short cylinders;
+     *        unsigned long start;
+     *  };
+     */
+    struct hd_geometry* getGeometry();
+
+    /**
+     * Calls ioctl() with the HDIO_GET_IDENTITY parameter, and returns the
+     * result (512 bytes). I didn't find a decent description or manual about
+     * ioctl() so use it if you want to on your own risk.
+     */
+    unsigned char* getIdentity();
+
+    /**
+     * Reads a block from the device, relative to the given PartitionRecord.
+     * The lba field is relative to the given PartitionRecord.
+     *
+     * @param record The PartitionRecord to use as offset.
+     * @param lba The lba to be read, relative to the PartitionRecord.
+     * @param keepopen Whether to close the file descriptor after reading
+     * the block (speedup for mass reading).
+     * @return The requested block. This block must be free()'d when needed.
+     * If record points to a PartitionRecord of type 0x0 (Empty) or
+     * if record = 0, this function returns (unsigned char*)0.
+     * 
+     * @throws IOException If the given lba exceeds the perimeters of the given
+     * PartitionRecord.
+     */
+    unsigned char* readBlock( PartitionRecord* record, unsigned long lba, bool keepopen ) throw( IOException );
+
+    /**
+     * Closes the file descriptor that belongs to this BlockDevice, if it is
+     * still open.
+     */
+    void closeFD();
     
 };
 
-#endif	/* _DISK_H */
+#endif	/* _BLOCKDEVICE_H */
 

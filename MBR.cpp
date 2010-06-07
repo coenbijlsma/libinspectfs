@@ -1,5 +1,4 @@
 #include "MBR.h"
-#include "PrimaryPartition.h"
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -17,55 +16,55 @@ const streamsize MBR::MBR_SIGN_SIZE;
 const unsigned short MBR::PARTITION_RECORD_SIZE;
 const unsigned short MBR::MAGIC_NUMBER;
 
-MBR::MBR(BlockDevice* disk) : _disk( disk ) {
+MBR::MBR(BlockDevice* bd) : _block_device( bd ) {
     filebuf fb;
-    fb.open( this->_disk->getDevNode().c_str(), ios::in | ios::binary );
+    fb.open( this->_block_device->getDevNode().c_str(), ios::in | ios::binary );
     istream is( &fb );
 
     is.read( this->_code, BLCODE_SIZE );
 
     if ( is.gcount()  != BLCODE_SIZE ) {
         this->_errors.push_back( string( "Could not read boot loader code from device node " )
-            + this->_disk->getDevNode()
+            + this->_block_device->getDevNode()
         );
     }
 
     is.read( this->_disk_signature, DISK_SIGNATURE_SIZE );
     if ( is.gcount() != DISK_SIGNATURE_SIZE ) {
         this->_errors.push_back( string( "Could not read disk signature from device node " )
-            + this->_disk->getDevNode()
+            + this->_block_device->getDevNode()
         );
     }
 
     is.read( this->_empty, EMPTY_SIZE );
     if ( is.gcount() != EMPTY_SIZE ) {
         this->_errors.push_back( string( "Could not read MBR from device node " )
-            + this->_disk->getDevNode()
+            + this->_block_device->getDevNode()
         );
     }
 
     // Read the partition records
     for( int i = 0; i < 4; i++ ) {
-        char partition[ PARTITION_RECORD_SIZE ] ;
-        is.read( partition, PARTITION_RECORD_SIZE );
+        char data[ PARTITION_RECORD_SIZE ] ;
+        is.read( data, PARTITION_RECORD_SIZE );
 
         if ( is.gcount() != PARTITION_RECORD_SIZE ) {
             std::stringstream conv;
             conv << i;
             this->_errors.push_back( string( "Could not read partition record "
                     + conv.str() + " from device node "
-                    + this->_disk->getDevNode()  )
+                    + this->_block_device->getDevNode()  )
             );
         }
         else {
-            this->_partitions.push_back( new PrimaryPartition( partition ) );
+            this->_partitions.push_back( new PartitionRecord( this, data ) );
         }
     }
 
     is.read( this->_mbr_signature, MBR_SIGN_SIZE );
     if ( is.gcount() != MBR_SIGN_SIZE ) {
         this->_errors.push_back( string( "Could not read MBR signature from device node " )
-            + this->_disk->getDevNode()
+            + this->_block_device->getDevNode()
         );
     }
     
@@ -74,12 +73,12 @@ MBR::MBR(BlockDevice* disk) : _disk( disk ) {
 
 MBR::~MBR() {
 
-    vector<Partition*>::iterator it = this->_partitions.begin();
+    vector<PartitionRecord*>::iterator it = this->_partitions.begin();
 
     while( it != this->_partitions.end() ) {
-        Partition* partition = *it;
+        PartitionRecord* partition = *it;
         delete partition;
-        partition = (Partition*)0;
+        partition = (PartitionRecord*)0;
         it++;
     }
 
@@ -116,10 +115,14 @@ bool MBR::isValid() {
     return ( ( this->_mbr_signature[ 0 ] << 8 ) | ( this->_mbr_signature[ 1 ] & 0xAA ) ) == MAGIC_NUMBER;
 }
 
-vector<Partition*> MBR::getPartitions() {
+vector<PartitionRecord*> MBR::getPartitions() {
     return this->_partitions;
 }
 
 vector<string> MBR::getErrors() {
     return this->_errors;
+}
+
+BlockDevice* MBR::getBlockDevice() {
+    return this->_block_device;
 }

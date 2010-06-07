@@ -1,5 +1,5 @@
 #include "Scanner.h"
-#include "Disk.h"
+#include "BlockDevice.h"
 #include <iostream>
 #include <string.h>
 
@@ -56,7 +56,7 @@ vector<Device*> Scanner::scan() {
 
                         if ( id_type ) {
                             if ( strcmp( "disk", id_type_value ) == 0 ) {
-                                BlockDevice* disk = new Disk( device );
+                                BlockDevice* disk = new BlockDevice( device );
                                 this->_devices.push_back( disk );
                             }
                             else if ( strcmp( "cd", id_type_value ) == 0 ) {
@@ -64,12 +64,15 @@ vector<Device*> Scanner::scan() {
                             }
                         }
                     }
-                    /*
                     else if ( strcmp( "partition", devtype ) == 0 )  {
                         // handle partition
-                        cout << "Ignoring partition" << endl;
+                        const char* slaveof = udev_device_get_property_value( device, "UDISKS_PARTITION_SLAVE" );
+                        Device* parent = this->findBySyspath( string( slaveof ) );
+
+                        if ( parent ) {
+                            cout << "Fould slave of " << parent->getDevNode() << endl;
+                        }
                     }
-                    */
                 }
                 
                 entry = udev_list_entry_get_next( entry );
@@ -83,6 +86,21 @@ vector<Device*> Scanner::scan() {
     }
 
     return this->_devices;
+}
+
+Device* Scanner::findBySyspath( string syspath ) {
+
+    vector<Device*>::iterator it = this->_devices.begin();
+
+    while( it != this->_devices.end() ) {
+        Device* dev = *it;
+        if ( dev->getSysPath().compare( syspath ) == 0 ) {
+            return dev;
+        }
+        it++;
+    }
+
+    return (Device*)0;
 }
 
 // .so stuff

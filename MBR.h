@@ -10,7 +10,7 @@
 
 #include "BlockDevice.h"
 #include "IOException.h"
-#include "Partition.h"
+#include "PartitionRecord.h"
 #include <iostream>
 #include <vector>
 
@@ -18,6 +18,7 @@ using std::vector;
 using std::streamsize;
 
 class BlockDevice;
+class PartitionRecord;
 
 class MBR {
 
@@ -38,7 +39,7 @@ protected:
     /**
      * @var The Disk this MBR belongs to.
      */
-    BlockDevice* _disk;
+    BlockDevice* _block_device;
 
     /**
      * @var The boot loader code, offset 0 - 439
@@ -58,7 +59,7 @@ protected:
     /**
      * @var The records of the primary partitions, offset 446 - 509
      */
-    vector<Partition*> _partitions;
+    vector<PartitionRecord*> _partitions;
 
     /**
      * @var The MBR signature (0xAA55), offzet 510 - 511
@@ -107,7 +108,7 @@ public:
     /**
      * Returns the 4 partition records from this MBR.
      */
-    vector<Partition*> getPartitions();
+    vector<PartitionRecord*> getPartitions();
 
     /**
      * If there were any errors while constructing this MBR, the errors are
@@ -116,6 +117,11 @@ public:
      * this function returns an empry vector.
      */
     vector<string> getErrors();
+
+    /**
+     * Returns the BlockDevice this MBR belongs to.
+     */
+    BlockDevice* getBlockDevice();
 };
 
 #endif	/* _MBR_H */
