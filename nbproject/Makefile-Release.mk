@@ -33,15 +33,15 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/MBR.o \
 	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Property.o \
-	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Disk.o \
-	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Device.o \
+	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/BlockDevice.o \
 	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/IOException.o \
+	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Device.o \
 	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Exception.o \
-	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Scanner.o \
 	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Partition.o \
+	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Scanner.o \
 	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/main.o \
-	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/PrimaryPartition.o \
-	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/User.o
+	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/User.o \
+	${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/PartitionRecord.o
 
 # C Compiler Flags
 CFLAGS=
@@ -77,50 +77,50 @@ ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Property.o: nbprojec
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Property.o /home/coen/workspace/netbeans/libinspectfs/Property.cpp
 
-${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Disk.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/Disk.cpp 
+${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/BlockDevice.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/BlockDevice.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Disk.o /home/coen/workspace/netbeans/libinspectfs/Disk.cpp
-
-${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Device.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/Device.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Device.o /home/coen/workspace/netbeans/libinspectfs/Device.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/BlockDevice.o /home/coen/workspace/netbeans/libinspectfs/BlockDevice.cpp
 
 ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/IOException.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/IOException.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/IOException.o /home/coen/workspace/netbeans/libinspectfs/IOException.cpp
 
+${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Device.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/Device.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Device.o /home/coen/workspace/netbeans/libinspectfs/Device.cpp
+
 ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Exception.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/Exception.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Exception.o /home/coen/workspace/netbeans/libinspectfs/Exception.cpp
-
-${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Scanner.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/Scanner.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Scanner.o /home/coen/workspace/netbeans/libinspectfs/Scanner.cpp
 
 ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Partition.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/Partition.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Partition.o /home/coen/workspace/netbeans/libinspectfs/Partition.cpp
 
+${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Scanner.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/Scanner.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/Scanner.o /home/coen/workspace/netbeans/libinspectfs/Scanner.cpp
+
 ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/main.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/main.o /home/coen/workspace/netbeans/libinspectfs/main.cpp
 
-${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/PrimaryPartition.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/PrimaryPartition.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/PrimaryPartition.o /home/coen/workspace/netbeans/libinspectfs/PrimaryPartition.cpp
-
 ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/User.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/User.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/User.o /home/coen/workspace/netbeans/libinspectfs/User.cpp
+
+${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/PartitionRecord.o: nbproject/Makefile-${CND_CONF}.mk /home/coen/workspace/netbeans/libinspectfs/PartitionRecord.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/home/coen/workspace/netbeans/libinspectfs/PartitionRecord.o /home/coen/workspace/netbeans/libinspectfs/PartitionRecord.cpp
 
 # Subprojects
 .build-subprojects:
