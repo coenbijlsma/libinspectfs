@@ -24,6 +24,8 @@ protected:
     int _logical_block_size;
 
     int _physical_block_size;
+    
+    unsigned long _size_in_bytes;
 
     MBR* _mbr;
 
@@ -52,11 +54,21 @@ public:
      * @see MBR::getErrors()
      */
     MBR* const getMBR();
+    
+    /**
+     * Returns whether this BlockDevice contains a GPT. For this, the MBR is 
+     * inspected, and if it contains only one partition of type 0xEE 
+     * (EFI Protective MBR) and it's size matches the device's size
+     * a GPT should exist.
+     * 
+     * @return Whether this BlockDevice contains a GPT.
+     */
+    bool hasGPT();
 
     /**
      * Returns the logical sector size of this BlockDevice.
      * This is mostly 512 bytes, but for optical discs this is 2048 bytes.
-     * Wikipedia sais that from 2011, manufacturers will implement 4096 bytes
+     * Wikipedia says that from 2011, manufacturers will implement 4096 bytes
      * as the new standard sector size. The value is retrieved by calling
      * ioctl( fd, BLKBSZGET, &var ).
      *
@@ -65,9 +77,9 @@ public:
     int getLogicalBlockSize() throw( IOException );
 
     /**
-     * Returns the logical sector size of this BlockDevice.
+     * Returns the physical sector size of this BlockDevice.
      * This is mostly 512 bytes, but for optical discs this is 2048 bytes.
-     * Wikipedia sais that from 2011, manufacturers will implement 4096 bytes
+     * Wikipedia says that from 2011, manufacturers will implement 4096 bytes
      * as the new standard sector size. The value is retrieved by calling
      * ioctl( fd, BLKSSZGET, &var ).
      *
@@ -85,6 +97,13 @@ public:
      *  };
      */
     struct hd_geometry* getGeometry();
+    
+    /**
+     * @return The size of this BlockDevice in bytes
+     * 
+     * @throws IOException If the ioctl() call fails
+     */
+    unsigned long getSizeInBytes();
 
     /**
      * Calls ioctl() with the HDIO_GET_IDENTITY parameter, and returns the

@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="62">
-  <logicalFolder name="root" displayName="root" projectFiles="true">
+<configurationDescriptor version="80">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/BlockDevice.h</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Device.h</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Exception.h</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/IOException.h</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/MBR.h</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Partition.h</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/PartitionRecord.h</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Property.h</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Scanner.h</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/UdevProperty.h</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/User.h</itemPath>
+      <logicalFolder name="f2" displayName="gpt" projectFiles="true">
+        <itemPath>GPT.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="mbr" projectFiles="true">
+        <itemPath>/home/coen/git/libinspectfs/MBR.h</itemPath>
+      </logicalFolder>
+      <itemPath>/home/coen/git/libinspectfs/BlockDevice.h</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/Device.h</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/Exception.h</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/IOException.h</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/Partition.h</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/PartitionRecord.h</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/Property.h</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/Scanner.h</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/UdevProperty.h</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/User.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -23,17 +28,21 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/BlockDevice.cpp</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Device.cpp</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Exception.cpp</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/IOException.cpp</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/MBR.cpp</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Partition.cpp</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/PartitionRecord.cpp</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Property.cpp</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/Scanner.cpp</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/User.cpp</itemPath>
-      <itemPath>/home/coen/workspace/netbeans/libinspectfs/main.cpp</itemPath>
+      <logicalFolder name="f2" displayName="gpt" projectFiles="true">
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="mbr" projectFiles="true">
+        <itemPath>/home/coen/git/libinspectfs/MBR.cpp</itemPath>
+      </logicalFolder>
+      <itemPath>/home/coen/git/libinspectfs/BlockDevice.cpp</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/Device.cpp</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/Exception.cpp</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/IOException.cpp</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/Partition.cpp</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/PartitionRecord.cpp</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/Property.cpp</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/Scanner.cpp</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/User.cpp</itemPath>
+      <itemPath>/home/coen/git/libinspectfs/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -45,9 +54,8 @@
   <confs>
     <conf name="Debug" type="1">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -59,16 +67,15 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinspectfs.so</output>
           <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs libudev`</linkerOptionItem>
           </linkerLibItems>
-          <commandLine>-ludev</commandLine>
         </linkerTool>
       </compileType>
     </conf>
     <conf name="Release" type="2">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
       </toolsSet>
       <compileType>
         <cTool>
@@ -80,10 +87,6 @@
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
         </fortranCompilerTool>
-        <linkerTool>
-          <linkerLibItems>
-          </linkerLibItems>
-        </linkerTool>
       </compileType>
     </conf>
   </confs>

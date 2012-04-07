@@ -53,6 +53,20 @@ int main(int argc, char** argv) {
 
         if ( disk ) {
             try {
+                
+                cout.flags( ios::dec );
+                
+                try {
+                    cout << "\tSize: " << (disk->getSizeInBytes() / (1024*1024*1024)) << " GB" << endl;
+                }
+                catch( IOException& ex )
+                {
+                    cout << "\tCannot read size: " << ex.what() << endl;
+                }
+                
+                cout << "\tDisk has GPT: " << endl;
+                disk->hasGPT();
+                
                 cout.flags( ios::hex );
                 MBR* mbr = disk->getMBR();
 
@@ -88,7 +102,6 @@ int main(int argc, char** argv) {
                     }
                 }
 
-                /*
                 vector<Property*> props = device->getProperties();
                 vector<Property*>::iterator pit = props.begin();
 
@@ -97,7 +110,6 @@ int main(int argc, char** argv) {
                     cout << "\t" << p->getName() << ":" << p->getValue() << endl;
                     pit++;
                 }
-                */
             }
             catch( IOException& ex ) {
                 cerr << "IOException: " << ex.what() << endl;

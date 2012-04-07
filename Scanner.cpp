@@ -55,6 +55,7 @@ vector<Device*> Scanner::scan() {
                         const char* id_type_value = udev_list_entry_get_value( id_type );
 
                         if ( id_type ) {
+                            
                             if ( strcmp( "disk", id_type_value ) == 0 ) {
                                 BlockDevice* disk = new BlockDevice( device );
                                 this->_devices.push_back( disk );
@@ -70,7 +71,7 @@ vector<Device*> Scanner::scan() {
                         Device* parent = this->findBySyspath( string( slaveof ) );
 
                         if ( parent ) {
-                            cout << "Fould slave of " << parent->getDevNode() << endl;
+                            cout << "Found slave of " << parent->getDevNode() << endl;
                         }
                     }
                 }

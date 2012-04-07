@@ -12,6 +12,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 
 #ifndef _LARGEFILE64_SOURCE
 #define _LARGEFILE64_SOURCE 1
@@ -22,7 +23,7 @@ using std::cerr;
 using std::endl;
 
 BlockDevice::BlockDevice( struct udev_device* dev)
-    : Device( dev ), _logical_block_size( 0 ), _physical_block_size( 0 ), _mbr( 0 ), _fd( -1 ) {
+    : Device( dev ), _logical_block_size( 0 ), _physical_block_size( 0 ), _size_in_bytes( 0 ), _mbr( 0 ), _fd( -1 ) {
 }
 
 BlockDevice::~BlockDevice() {
@@ -46,6 +47,49 @@ MBR* const BlockDevice::getMBR() {
     return this->_mbr;
 }
 
+bool BlockDevice::hasGPT() {
+    MBR* mbr = this->getMBR();
+    
+    if(mbr->isValid())
+    {
+        cout << "\tValid MBR, querying partitions..." << endl;
+        vector<PartitionRecord*> partitions = mbr->getPartitions();
+        
+        // There should be only one partition
+        if(partitions.size() == (vector<PartitionRecord*>::size_type)1)
+        {
+            PartitionRecord* record = *(partitions.begin());
+            
+            // The type of the partition should be 0xEE: EFI protective MBR
+            if(record->getType() == 0xee)
+            {
+                unsigned long partitionSize = record->getSectorCount() * this->getPhysicalBlockSize();
+                
+                if(partitionSize == this->getSizeInBytes())
+                {
+                    return true;
+                }
+                else
+                {
+                    // If we end up here, that's just weird.
+                    cout << "\tFound only one partition of type 0xEE but it doesn't match the disk size." << endl;
+                }
+            }
+            else
+            {
+                cout << "\tFound only one partition but it isn't of type 0xEE" << endl;
+            }
+        }
+        else
+        {
+            cout << "\tMore than one partition in MBR detected --> no GPT" << endl;
+        }
+        
+    }
+    
+    return false;
+}
+
 int BlockDevice::getLogicalBlockSize() throw( IOException ) {
     if ( this->_logical_block_size == 0 ) {
         int fd = open( this->getDevNode().c_str(), O_RDONLY );
@@ -61,7 +105,6 @@ int BlockDevice::getLogicalBlockSize() throw( IOException ) {
                 if ( errno ) {
                     char* errorstring = strerror( errno );
                     string what( errorstring );
-                    delete errorstring;
                     throw IOException( what );
                 }
                 else {
@@ -91,7 +134,6 @@ int BlockDevice::getPhysicalBlockSize() throw( IOException ) {
                 if ( errno ) {
                     char* errorstring = strerror( errno );
                     string what( errorstring );
-                    delete errorstring;
                     throw IOException( what );
                 }
                 else {
@@ -122,7 +164,6 @@ struct hd_geometry* BlockDevice::getGeometry() {
                 if ( errno ) {
                     char* errorstring = strerror( errno );
                     string what( errorstring );
-                    delete errorstring;
                     throw IOException( what );
                 }
                 else {
@@ -133,6 +174,40 @@ struct hd_geometry* BlockDevice::getGeometry() {
     }
 
     return this->_geometry;
+}
+
+unsigned long BlockDevice::getSizeInBytes()
+{
+    if(this->_size_in_bytes == 0)
+    {
+        int fd = open( this->getDevNode().c_str(), O_RDONLY );
+        
+        if( !fd )
+        {
+            throw IOException( string( "Cannot open device ") + this->getDevNode() );
+        }
+        else {
+            unsigned long blocks = 0;
+            int result = ioctl( fd, BLKGETSIZE, &blocks );
+            close( fd );
+            
+            if( result == -1 ) {
+                if( errno )
+                {
+                    char* errorstring = strerror( errno );
+                    string what( errorstring );
+                    throw IOException( what );
+                }
+                else {
+                    throw IOException( string( "Cannot read size off device ") + this->getDevNode() );
+                }
+            }
+            
+            this->_size_in_bytes = blocks * this->getPhysicalBlockSize();
+        }
+    }
+    
+    return this->_size_in_bytes;
 }
 
 unsigned char* BlockDevice::getIdentity() {
@@ -151,7 +226,6 @@ unsigned char* BlockDevice::getIdentity() {
                 if ( errno ) {
                     char* errorstring = strerror( errno );
                     string what( errorstring );
-                    delete errorstring;
                     throw IOException( what );
                 }
                 else {

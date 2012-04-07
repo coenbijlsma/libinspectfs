@@ -62,7 +62,7 @@ protected:
     vector<PartitionRecord*> _partitions;
 
     /**
-     * @var The MBR signature (0xAA55), offzet 510 - 511
+     * @var The MBR signature (0xAA55), offset 510 - 511
      */
     char _mbr_signature[ 2 ];
 
@@ -101,7 +101,7 @@ public:
     char* getMBRSignature();
 
     /**
-     * Returns whether ths signature of this MBR is valid (I.E. equals 0xAA55)
+     * Returns whether this signature of this MBR is valid (I.E. equals 0xAA55)
      */
     bool isValid();
 
@@ -114,7 +114,7 @@ public:
      * If there were any errors while constructing this MBR, the errors are
      * stored for later inspection.
      * This function returns them, if there are any. If there are no errors,
-     * this function returns an empry vector.
+     * this function returns an empty vector.
      */
     vector<string> getErrors();
 
