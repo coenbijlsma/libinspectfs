@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
                     cout << "\tCannot read size: " << ex.what() << endl;
                 }
                 
-                cout << "\tDisk has GPT: " << endl;
+                cout << "\tFiguring out if disk has GPT: " << endl;
                 disk->hasGPT();
                 
                 cout.flags( ios::hex );

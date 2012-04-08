@@ -55,34 +55,29 @@ bool BlockDevice::hasGPT() {
         cout << "\tValid MBR, querying partitions..." << endl;
         vector<PartitionRecord*> partitions = mbr->getPartitions();
         
-        // There should be only one partition
-        if(partitions.size() == (vector<PartitionRecord*>::size_type)1)
+        PartitionRecord* record = *(partitions.begin());
+
+        // The type of the partition should be 0xEE: EFI protective MBR
+        if(record->getType() == 0xee)
         {
-            PartitionRecord* record = *(partitions.begin());
+            unsigned long partitionSize = record->getSectorCount() * this->getPhysicalBlockSize();
             
-            // The type of the partition should be 0xEE: EFI protective MBR
-            if(record->getType() == 0xee)
+            // Compare with (partitionSize + 512) because the MBR
+            // is not part of the partition size.
+            if( (partitionSize + 512) == this->getSizeInBytes())
             {
-                unsigned long partitionSize = record->getSectorCount() * this->getPhysicalBlockSize();
-                
-                if(partitionSize == this->getSizeInBytes())
-                {
-                    return true;
-                }
-                else
-                {
-                    // If we end up here, that's just weird.
-                    cout << "\tFound only one partition of type 0xEE but it doesn't match the disk size." << endl;
-                }
+                cout << "\tDisk contains GPT" << endl;
+                return true;
             }
             else
             {
-                cout << "\tFound only one partition but it isn't of type 0xEE" << endl;
+                cout << "\tFirst partition is of type 0xEE but it doesn't match the disk size:" << endl;
+                cout << "\tPartition size is " << partitionSize << " and disk size is " << this->getSizeInBytes() << endl;
             }
         }
         else
         {
-            cout << "\tMore than one partition in MBR detected --> no GPT" << endl;
+            cout << "\tFound only one partition but it isn't of type 0xEE" << endl;
         }
         
     }

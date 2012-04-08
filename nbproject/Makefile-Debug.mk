@@ -35,8 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/595930898/Partition.o \
-	${OBJECTDIR}/_ext/595930898/User.o \
 	${OBJECTDIR}/_ext/595930898/PartitionRecord.o \
+	${OBJECTDIR}/_ext/595930898/User.o \
 	${OBJECTDIR}/_ext/595930898/IOException.o \
 	${OBJECTDIR}/_ext/595930898/MBR.o \
 	${OBJECTDIR}/_ext/595930898/Device.o \
@@ -76,15 +76,15 @@ ${OBJECTDIR}/_ext/595930898/Partition.o: /home/coen/git/libinspectfs/Partition.c
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I/usr/include `pkg-config --cflags libudev`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/595930898/Partition.o /home/coen/git/libinspectfs/Partition.cpp
 
-${OBJECTDIR}/_ext/595930898/User.o: /home/coen/git/libinspectfs/User.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/595930898
-	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I/usr/include `pkg-config --cflags libudev`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/595930898/User.o /home/coen/git/libinspectfs/User.cpp
-
 ${OBJECTDIR}/_ext/595930898/PartitionRecord.o: /home/coen/git/libinspectfs/PartitionRecord.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/595930898
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I/usr/include `pkg-config --cflags libudev`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/595930898/PartitionRecord.o /home/coen/git/libinspectfs/PartitionRecord.cpp
+
+${OBJECTDIR}/_ext/595930898/User.o: /home/coen/git/libinspectfs/User.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/595930898
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I/usr/include `pkg-config --cflags libudev`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/595930898/User.o /home/coen/git/libinspectfs/User.cpp
 
 ${OBJECTDIR}/_ext/595930898/IOException.o: /home/coen/git/libinspectfs/IOException.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/595930898
