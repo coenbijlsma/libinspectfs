@@ -68,10 +68,12 @@ vector<Device*> Scanner::scan() {
                     else if ( strcmp( "partition", devtype ) == 0 )  {
                         // handle partition
                         const char* slaveof = udev_device_get_property_value( device, "UDISKS_PARTITION_SLAVE" );
-                        Device* parent = this->findBySyspath( string( slaveof ) );
 
-                        if ( parent ) {
-                            cout << "Found slave of " << parent->getDevNode() << endl;
+                        if ( slaveof ) {
+                            Device* parent = this->findBySyspath( string( slaveof ) );
+                            if ( parent ) {
+                                cout << "Found slave of " << parent->getDevNode() << endl;
+                            }
                         }
                     }
                 }

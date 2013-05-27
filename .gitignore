@@ -1,2 +1,4 @@
-/build/Debug/
-/dist/Debug/
+*.o
+*.swp
+.sconsign.dblite
+libinspectfs
